@@ -6,8 +6,8 @@ require 'state_machines/integrations/mongoid/version'
 Gem::Specification.new do |spec|
   spec.name          = 'state_machines-mongoid'
   spec.version       = StateMachines::Integrations::Mongoid::VERSION
-  spec.authors       = ['Abdelkader Boudih']
-  spec.email         = ['terminale@gmail.com']
+  spec.authors       = ['Abdelkader Boudih', 'Aaron Pfeifer']
+  spec.email         = %w(terminale@gmail.com aaron@pluginaweek.org)
   spec.summary       = 'Mongoid integration for state machines'
   spec.description   = 'Mongoid integration for state machines gem'
   spec.homepage      = ''
