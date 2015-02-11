@@ -1,6 +1,7 @@
-# StateMachines::Mongoid
+# StateMachines Mongoid Integration
 
-TODO: Write a gem description
+The Mongoid integration adds support for automatically
+saving the record, named scopes, validation errors.
 
 ## Installation
 
@@ -18,12 +19,47 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class Vehicle
+  include Mongoid::Document
+
+  state_machine :initial => :parked do
+    before_transition :parked => any - :parked, :do => :put_on_seatbelt
+    after_transition any => :parked do |vehicle, transition|
+      vehicle.seatbelt_on = 'off'
+    end
+    around_transition :benchmark
+
+    event :ignite do
+      transition :parked => :idling
+    end
+
+    state :first_gear, :second_gear do
+      validates_presence_of :seatbelt_on
+    end
+  end
+
+  def put_on_seatbelt
+    self.seatbelt_on = 'on'
+  end
+
+  def benchmark
+    #...
+    yield
+    #...
+  end
+end
+```
+
+Dependencies
+
+Mongoid 4.0+
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/state_machines-mongoid/fork )
+1. Fork it ( https://github.com/state-machines/state_machines-mongoid/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+

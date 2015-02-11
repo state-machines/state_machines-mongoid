@@ -1,4 +1,5 @@
 require 'state_machines'
+require 'state_machines-activemodel'
 require 'mongoid'
 
 module StateMachines
@@ -232,75 +233,7 @@ module StateMachines
     #
     # == Observers
     #
-    # In addition to support for Mongoid-like hooks, there is additional support
-    # for Mongoid observers.  Because of the way Mongoid observers are designed,
-    # there is less flexibility around the specific transitions that can be
-    # hooked in.  However, a large number of hooks *are* supported.  For
-    # example, if a transition for a record's +state+ attribute changes the
-    # state from +parked+ to +idling+ via the +ignite+ event, the following
-    # observer methods are supported:
-    # * before/after/after_failure_to-_ignite_from_parked_to_idling
-    # * before/after/after_failure_to-_ignite_from_parked
-    # * before/after/after_failure_to-_ignite_to_idling
-    # * before/after/after_failure_to-_ignite
-    # * before/after/after_failure_to-_transition_state_from_parked_to_idling
-    # * before/after/after_failure_to-_transition_state_from_parked
-    # * before/after/after_failure_to-_transition_state_to_idling
-    # * before/after/after_failure_to-_transition_state
-    # * before/after/after_failure_to-_transition
-    #
-    # The following class shows an example of some of these hooks:
-    #
-    #   class VehicleObserver < Mongoid::Observer
-    #     def before_save(vehicle)
-    #       # log message
-    #     end
-    #
-    #     # Callback for :ignite event *before* the transition is performed
-    #     def before_ignite(vehicle, transition)
-    #       # log message
-    #     end
-    #
-    #     # Callback for :ignite event *after* the transition has been performed
-    #     def after_ignite(vehicle, transition)
-    #       # put on seatbelt
-    #     end
-    #
-    #     # Generic transition callback *before* the transition is performed
-    #     def after_transition(vehicle, transition)
-    #       Audit.log(vehicle, transition)
-    #     end
-    #   end
-    #
-    # More flexible transition callbacks can be defined directly within the
-    # model as described in StateMachines::Machine#before_transition
-    # and StateMachines::Machine#after_transition.
-    #
-    # To define a single observer for multiple state machines:
-    #
-    #   class StateMachineObserver < Mongoid::Observer
-    #     observe Vehicle, Switch, Project
-    #
-    #     def after_transition(record, transition)
-    #       Audit.log(record, transition)
-    #     end
-    #   end
-    #
-    # === Callback Order
-    #
-    # Callbacks occur in the following order.  Callbacks specific to state_machine
-    # are bolded.  The remaining callbacks are part of Mongoid.
-    #
-    # * (-) save
-    # * (1) *before_transition*
-    # * (-) valid
-    # * (2) before_validation
-    # * (3) after_validation
-    # * (4) before_save
-    # * (5) before_create
-    # * (6) after_create
-    # * (7) after_save
-    # * (8) *after_transition*
+    # Have been removed in Rails 4 and therefore are no longer supported.
     #
     # == Internationalization
     #
@@ -356,12 +289,16 @@ module StateMachines
       include ActiveModel
 
       # The default options to use for state machines using this integration
-      @defaults = { action: :save }
+      @defaults = { action: :save, use_transactions: false }
 
       # Classes that include Mongoid::Document will automatically use the
       # Mongoid integration.
       def self.matching_ancestors
         %w(Mongoid::Document)
+      end
+
+      def self.locale_path
+        "#{File.dirname(__FILE__)}/mongoid/locale.rb"
       end
 
       protected
@@ -453,6 +390,12 @@ module StateMachines
       def define_scope(_name, scope)
         lambda { |model, values| model.criteria.where(scope.call(values)) }
       end
+
+      def locale_path
+        "#{File.dirname(__FILE__)}/mongoid/locale.rb"
+      end
     end
+    register(Mongoid)
+
   end
 end
