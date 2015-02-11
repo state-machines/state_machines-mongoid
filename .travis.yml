@@ -1,24 +1,19 @@
 language: ruby
-before_install:
- - gem install bundler
- - bundle install
-script: bundle exec rake
+sudo: false
+cache: bundler
 
 services:
   - mongodb
 rvm:
+  - 2.2
+  - 2.1
   - 1.9.3
-  - 2.0.0
-  - 2.1.2
-  - ruby-head
   - jruby-19mode
   - rbx-2
 
 gemfile:
-  - gemfiles/active_model_3.2.gemfile
-  - gemfiles/active_model_4.0.gemfile
   - gemfiles/active_model_4.1.gemfile
-  - gemfiles/active_model_edge.gemfile
+  - gemfiles/active_model_4.2.gemfile
 
 matrix:
   allow_failures:
