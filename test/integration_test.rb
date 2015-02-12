@@ -14,7 +14,7 @@ class IntegrationTest < BaseTestCase
   end
 
   def test_should_have_defaults
-    assert_equal({:action => :save}, StateMachines::Integrations::Mongoid.defaults)
+    assert_equal({:action => :save, :use_transactions => false}, StateMachines::Integrations::Mongoid.defaults)
   end
 
   def test_should_have_a_locale_path
