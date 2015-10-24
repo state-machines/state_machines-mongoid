@@ -1,0 +1,6 @@
+test:
+  clients:
+    default:
+      database: state-machines-mongoid_test
+      hosts:
+        - localhost:27017

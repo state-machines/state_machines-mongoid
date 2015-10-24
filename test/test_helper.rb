@@ -2,28 +2,10 @@ require 'minitest/reporters'
 Minitest::Reporters.use!(Minitest::Reporters::SpecReporter.new)
 require 'state_machines-mongoid'
 require 'minitest/autorun'
+require 'mongoid'
+require 'mongo/client'
 
-# Env variables can be set to test to another database
-ENV['MONGO_HOST'] ||= 'localhost'
-ENV['MONGO_PORT'] ||= '27017'
-
-HOST = ENV['MONGO_HOST']
-PORT = ENV['MONGO_PORT'].to_i
-DB_NAME = 'state-machines-mongoid_test'
-
-CONFIG = {
-  sessions: {
-    default: {
-      database: DB_NAME,
-      hosts: [ "#{HOST}:#{PORT}" ]
-    }
-  }
-}
-
-# Set the database that the spec suite connects to.
-Mongoid.configure do |config|
-  config.load_configuration(CONFIG)
-end
+Mongoid.load!('./test/config/mongoid.yml', :test)
 
 # Module for test models
 module MongoidTest
@@ -36,7 +18,8 @@ class BaseTestCase < Minitest::Test
 
   def teardown
     if @table_names
-      db = Mongoid::Sessions.default
+      client = Mongo::Client.new(['127.0.0.1:27017'])
+      db = Mongo::Database.new(client, :test)
       db.collections.each {|c| c.drop if @table_names.include?(c.name)}
     end
   end
