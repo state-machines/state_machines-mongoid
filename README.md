@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/state-machines/state_machines-mongoid.svg?branch=master)](https://travis-ci.org/state-machines/state_machines-mongoid)
-[![Code Climate](https://codeclimate.com/github/state-machines/state_machines-mongoid.png)](https://codeclimate.com/github/state-machines/state_machines-mongoid)
+[![Code Climate](https://codeclimate.com/github/state-machines/state_machines-mongoid.svg)](https://codeclimate.com/github/state-machines/state_machines-mongoid)
 
 # StateMachines Mongoid Integration
 
