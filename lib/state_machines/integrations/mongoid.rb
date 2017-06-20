@@ -294,7 +294,7 @@ module StateMachines
       # Classes that include Mongoid::Document will automatically use the
       # Mongoid integration.
       def self.matching_ancestors
-        %w(Mongoid::Document)
+        [::Mongoid::Document]
       end
 
       def self.locale_path
