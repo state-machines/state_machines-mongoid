@@ -334,7 +334,7 @@ module StateMachines
               defaults = {}
               self.class.state_machines.initialize_states(self, :static => :force, :dynamic => false, :to => defaults)
               defaults.each do |attr, value|
-                send(:"\#{attr}=", value) unless attributes.include?(attr)
+                send(:"\#{attr}=", value) unless has_attribute?(attr) || attribute_missing?(attr)
               end
               super
             end
