@@ -18,8 +18,7 @@ class BaseTestCase < Minitest::Test
 
   def teardown
     if @table_names
-      client = Mongo::Client.new(['127.0.0.1:27017'])
-      db = Mongo::Database.new(client, :test)
+      db = Mongoid::Clients.default
       db.collections.each {|c| c.drop if @table_names.include?(c.name)}
     end
   end
