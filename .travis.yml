@@ -21,7 +21,12 @@ gemfile:
   - gemfiles/active_model_5.1.gemfile
   - gemfiles/active_model_5.2.gemfile
   - gemfiles/active_model_6.0.gemfile
+  - gemfiles/active_model_edge.gemfile
 
 matrix:
   allow_failures:
-    - rvm: ruby-head
+    - rvm: rbx-2
+    - gemfile: gemfiles/active_model_edge.gemfile
+      rvm: '2.5'
+    - gemfile: gemfiles/active_model_edge.gemfile
+      rvm: '2.6'
