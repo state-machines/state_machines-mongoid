@@ -10,12 +10,10 @@ rvm:
   - 2.3
   - 2.2
   - 2.1
-  - 1.9.3
-  - jruby-19mode
+  - jruby
   - rbx-2
 
 gemfile:
-  - gemfiles/active_model_4.1.gemfile
   - gemfiles/active_model_4.2.gemfile
   - gemfiles/active_model_5.0.gemfile
   - gemfiles/active_model_5.1.gemfile
