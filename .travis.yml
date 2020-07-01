@@ -17,6 +17,7 @@ rvm:
 gemfile:
   - gemfiles/active_model_4.1.gemfile
   - gemfiles/active_model_4.2.gemfile
+  - gemfiles/active_model_5.1.gemfile
 
 matrix:
   allow_failures:
