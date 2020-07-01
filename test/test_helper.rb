@@ -11,6 +11,7 @@ Mongoid.load!('./test/config/mongoid.yml', :test)
 module MongoidTest
 end
 
+I18n.load_path << StateMachines::Integrations::Mongoid.locale_path
 
 class BaseTestCase < Minitest::Test
   def default_test
