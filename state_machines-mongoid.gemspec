@@ -10,17 +10,16 @@ Gem::Specification.new do |spec|
   spec.email         = %w(terminale@gmail.com aaron@pluginaweek.org)
   spec.summary       = 'Mongoid integration for state machines'
   spec.description   = 'Mongoid integration for state machines gem'
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/state-machines/state_machines-mongoid'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.files         = Dir['{lib}/**/*', 'LICENSE.txt', 'README.md']
+  spec.test_files    = Dir['test/**/*']
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version     = '>= 2.0.0'
+  spec.required_ruby_version     = '>= 3.0.0'
   spec.add_dependency 'state_machines-activemodel', '>= 0.5.0'
-  spec.add_dependency 'mongoid' , '>= 4.0.0'
+  spec.add_dependency 'mongoid' , '>= 6.0.0'
 
   spec.add_development_dependency 'bundler', '>= 1.6'
   spec.add_development_dependency 'rake', '~> 10.3'
