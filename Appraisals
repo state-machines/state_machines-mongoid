@@ -1,8 +1,16 @@
 # ActiveModel integrations
-appraise 'active_model_4.1' do
-    gem 'activemodel', github: 'rails/rails', branch: '4-1-stable'
+appraise 'active_model_6.0' do
+  gem 'activemodel', '~> 6.0.3'
 end
 
-appraise 'active_model_4.2' do
-    gem 'activemodel', github: 'rails/rails', branch: '4-2-stable'
+appraise 'active_model_6.1' do
+  gem 'activemodel', '~> 6.1.3'
+end
+
+appraise 'active_model_7.0' do
+  gem 'activemodel', '~> 7.0.0'
+end
+
+appraise 'active_model_edge' do
+  gem 'activemodel', github: 'rails/rails', branch: 'main'
 end
